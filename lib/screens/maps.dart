@@ -8,7 +8,7 @@ class MapsScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Text('Maps page'),
-     ),
-   );
+      ),
+    );
   }
 }
