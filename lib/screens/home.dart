@@ -23,7 +23,9 @@ class HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.delete),
-            onPressed: () {},
+            onPressed: () {
+              Provider.of<ScanListProvider>(context, listen: false).deleteScans();
+            },
           )
         ],
       ),
@@ -56,7 +58,7 @@ class _HomePageBody extends StatelessWidget {
         return AddressesHistoryScreen();
 
       default:
-        return MapsHistoryScreen();
+        return AddressesHistoryScreen();
     }
   }
 }

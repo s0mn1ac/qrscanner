@@ -13,7 +13,6 @@ class ScanListProvider extends ChangeNotifier {
     final newScan = new Scan(value: value);
     final id = await DBProvider.dbProvider.addScan(newScan);
 
-    // Añadir el ID ofrecido por la base de datos al modelo
     newScan.id = id;
 
     if (this.typeSelected == newScan.type) {
@@ -31,6 +30,7 @@ class ScanListProvider extends ChangeNotifier {
   getScansByType(String type) async {
     final scans = await DBProvider.dbProvider.getScansByType(type);
     this.scans = [...scans];
+    this.typeSelected = type;
     notifyListeners();
   }
 
