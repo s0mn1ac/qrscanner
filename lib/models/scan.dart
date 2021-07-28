@@ -8,14 +8,14 @@ class Scan {
 
   Scan({
     this.id,
-    required this.type,
+    this.type,
     required this.value,
   }) {
-    this.type = this.type.contains('http') ? 'http' : 'geo';
+    this.type = this.value.contains('http') ? 'http' : 'geo';
   }
 
   int? id;
-  String type;
+  String? type;
   String value;
 
   factory Scan.fromJson(Map<String, dynamic > json) => Scan(

@@ -7,6 +7,9 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 
+import 'package:qrscanner/models/scan.dart';
+export 'package:qrscanner/models/scan.dart';
+
 class DBProvider {
 
   static Database? _database;
@@ -47,5 +50,26 @@ class DBProvider {
         ''');
       }
     );
+  }
+
+  Future<int> addScanRaw(Scan scan) async {
+
+    final id = scan.id;
+    final type = scan.type;
+    final value = scan.value;
+
+    final db = await this.database;
+
+    final res = await db.rawInsert('''
+      INSERT INTO Scans(id, type, value)
+      VALUES($id, '$type', '$value');
+    ''');
+
+    return res;
+  }
+
+  Future<int> addScan(Scan scan) async {
+    final db = await this.database;
+    return await db.insert('Scans', scan.toJson());
   }
 }
