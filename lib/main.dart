@@ -17,7 +17,16 @@ class QRScannerApp extends StatelessWidget {
       routes: {
         'home': (_) => HomeScreen(),
         'maps': (_) => MapsScreen()
-      }
+      },
+      theme: ThemeData(
+        primaryColor: Colors.deepPurple,
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: Colors.deepPurple
+        ),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          selectedItemColor: Colors.deepPurple
+        )
+      )
     );
   }
 }
