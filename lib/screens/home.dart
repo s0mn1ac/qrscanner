@@ -33,7 +33,7 @@ class _HomePageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-    final currentIndex = 0;
+    final int currentIndex = 0;
 
     switch (currentIndex) {
       case 0:

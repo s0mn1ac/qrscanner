@@ -5,7 +5,7 @@ class CustomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final currentIndex = 0;
+    final int currentIndex = 0;
 
     return BottomNavigationBar(
       currentIndex: currentIndex,
