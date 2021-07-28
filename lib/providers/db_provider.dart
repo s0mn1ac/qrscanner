@@ -93,4 +93,9 @@ class DBProvider {
     ''');
     return rawScan.isNotEmpty ? rawScan.map((item) => Scan.fromJson(item)).toList() : [];
   }
+
+  Future<int> updateScan(Scan scan) async {
+    final db = await this.database;
+    return await db.update('Scans', scan.toJson(), where: 'id = ?', whereArgs: [scan.id]);
+  }
 }
