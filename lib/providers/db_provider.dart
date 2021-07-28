@@ -87,15 +87,31 @@ class DBProvider {
 
   Future<List<Scan>> getScansByType(String type) async {
     final db = await this.database;
-    final rawScan = await db.rawQuery('''
-      SELECT * FROM Scans
-      WHERE type = '$type';
-    ''');
+    final rawScan = await db.query('Scans', where: 'type = ?', whereArgs: [type]);
+    // final rawScan = await db.rawQuery('''
+    //   SELECT * FROM Scans
+    //   WHERE type = '$type';
+    // ''');
     return rawScan.isNotEmpty ? rawScan.map((item) => Scan.fromJson(item)).toList() : [];
   }
 
   Future<int> updateScan(Scan scan) async {
     final db = await this.database;
     return await db.update('Scans', scan.toJson(), where: 'id = ?', whereArgs: [scan.id]);
+  }
+
+  Future<int> deleteScan(int id) async {
+    final db = await this.database;
+    return await db.delete('Scans', where: 'id = ?', whereArgs: [id]);
+  }
+
+  Future<int> deleteScans() async {
+    final db = await this.database;
+    return await db.delete('Scans');
+  }
+
+  Future<int> deleteScansByType(String type) async {
+    final db = await this.database;
+    return await db.delete('Scans', where: 'type = ?', whereArgs: [type]);
   }
 }

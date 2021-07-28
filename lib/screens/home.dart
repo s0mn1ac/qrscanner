@@ -18,6 +18,7 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: Text('Historial'),
         actions: [
           IconButton(
