@@ -52,24 +52,45 @@ class DBProvider {
     );
   }
 
-  Future<int> addScanRaw(Scan scan) async {
+  // Future<int> addScanRaw(Scan scan) async {
 
-    final id = scan.id;
-    final type = scan.type;
-    final value = scan.value;
+  //   final id = scan.id;
+  //   final type = scan.type;
+  //   final value = scan.value;
 
-    final db = await this.database;
+  //   final db = await this.database;
 
-    final res = await db.rawInsert('''
-      INSERT INTO Scans(id, type, value)
-      VALUES($id, '$type', '$value');
-    ''');
+  //   final res = await db.rawInsert('''
+  //     INSERT INTO Scans(id, type, value)
+  //     VALUES($id, '$type', '$value');
+  //   ''');
 
-    return res;
-  }
+  //   return res;
+  // }
 
   Future<int> addScan(Scan scan) async {
     final db = await this.database;
     return await db.insert('Scans', scan.toJson());
+  }
+
+  Future<Scan?> getScan(int id) async {
+    final db = await this.database;
+    final rawScan = await db.query('Scans', where: 'id = ?', whereArgs: [id]);
+    return rawScan.isNotEmpty ? Scan.fromJson(rawScan.first) : null;
+  }
+
+  Future<List<Scan>> getScans() async {
+    final db = await this.database;
+    final rawScan = await db.query('Scans');
+    return rawScan.isNotEmpty ? rawScan.map((item) => Scan.fromJson(item)).toList() : [];
+  }
+
+  Future<List<Scan>> getScansByType(String type) async {
+    final db = await this.database;
+    final rawScan = await db.rawQuery('''
+      SELECT * FROM Scans
+      WHERE type = '$type';
+    ''');
+    return rawScan.isNotEmpty ? rawScan.map((item) => Scan.fromJson(item)).toList() : [];
   }
 }
