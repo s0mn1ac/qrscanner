@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+
+import 'package:provider/provider.dart';
+
+import 'package:qrscanner/providers/ui_provider.dart';
+
 import 'package:qrscanner/screens/addresses_history.dart';
 import 'package:qrscanner/screens/maps_history.dart';
 
@@ -32,14 +37,19 @@ class _HomePageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final UiProvider uiProvider = Provider.of<UiProvider>(context);
     
-    final int currentIndex = 0;
+    final int currentIndex = uiProvider.selectedMenuOption;
 
     switch (currentIndex) {
+
       case 0:
         return MapsHistoryScreen();
+
       case 1:
         return AddressesHistoryScreen();
+        
       default:
         return MapsHistoryScreen();
     }
