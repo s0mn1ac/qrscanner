@@ -17,7 +17,7 @@ class QRScannerApp extends StatelessWidget {
       routes: {
         'home': (_) => HomeScreen(),
         'maps': (_) => MapsScreen()
-      },
+      }
     );
   }
 }
