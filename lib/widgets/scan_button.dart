@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'package:provider/provider.dart';
+
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+
+import 'package:qrscanner/providers/sl_provider.dart';
 
 class ScanButton extends StatelessWidget {
 
@@ -17,7 +21,8 @@ class ScanButton extends StatelessWidget {
         final String barcodeScanRes = 'https://fernando-herrera.com';
         
         if(barcodeScanRes != '-1') {
-          // TODO
+          final ScanListProvider slProvider = Provider.of<ScanListProvider>(context, listen: false);
+          slProvider.addNewScan('geo:15.33,15.66');
         }
       },
     );

@@ -1,12 +1,27 @@
 import 'package:flutter/material.dart';
 
+import 'package:provider/provider.dart';
+
+import 'package:qrscanner/providers/sl_provider.dart';
+
 class MapsHistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
 
-    return Center(
-      child: Text('Historial de mapas'),
+    final ScanListProvider slProvider = Provider.of<ScanListProvider>(context);
+    final scans = slProvider.scans;
+
+    return ListView.builder(
+      physics: BouncingScrollPhysics(),
+      itemCount: scans.length,
+      itemBuilder: (_, i) => ListTile(
+        leading: Icon(Icons.map, color: Theme.of(context).primaryColor),
+        title: Text(scans[i].value),
+        subtitle: Text(scans[i].id.toString()),
+        trailing: Icon(Icons.keyboard_arrow_right, color: Colors.grey),
+        onTap: () => print(scans[i].id.toString())
+      )
     );
   }
 }

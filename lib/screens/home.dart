@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
+import 'package:qrscanner/providers/sl_provider.dart';
 import 'package:qrscanner/providers/ui_provider.dart';
-import 'package:qrscanner/providers/db_provider.dart';
 
 import 'package:qrscanner/screens/addresses_history.dart';
 import 'package:qrscanner/screens/maps_history.dart';
@@ -41,17 +41,18 @@ class _HomePageBody extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final UiProvider uiProvider = Provider.of<UiProvider>(context);
+    final ScanListProvider slProvider = Provider.of<ScanListProvider>(context, listen: false);
     
     final int currentIndex = uiProvider.selectedMenuOption;
-
-    // DBProvider.dbProvider.getScans().then(print);
 
     switch (currentIndex) {
 
       case 0:
+        slProvider.getScansByType('geo');
         return MapsHistoryScreen();
 
       case 1:
+        slProvider.getScansByType('http');
         return AddressesHistoryScreen();
 
       default:
