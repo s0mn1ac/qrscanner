@@ -16,6 +16,9 @@ class _MapsScreenState extends State<MapsScreen> {
 
   Completer<GoogleMapController> _controller = Completer();
 
+  MapType mapType = MapType.normal;
+  IconData icon = Icons.terrain;
+
   @override
   Widget build(BuildContext context) {
 
@@ -57,7 +60,7 @@ class _MapsScreenState extends State<MapsScreen> {
       body: GoogleMap(
         myLocationButtonEnabled: false,
         zoomControlsEnabled: false,
-        mapType: MapType.normal,
+        mapType: mapType,
         markers: markers,
         initialCameraPosition: initialPoint,
         onMapCreated: (GoogleMapController controller) {
@@ -65,11 +68,14 @@ class _MapsScreenState extends State<MapsScreen> {
         }
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.layers),
+        child: Icon(icon),
         onPressed: () {
-          
-        },
-      ),
+          setState(() {
+            mapType == MapType.normal ? mapType = MapType.hybrid : mapType = MapType.normal;
+            icon == Icons.terrain ? icon = Icons.satellite : icon = Icons.terrain;
+          });
+        }
+      )
     );
   }
 }
