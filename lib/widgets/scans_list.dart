@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:qrscanner/providers/sl_provider.dart';
+import 'package:qrscanner/utils/utils.dart';
 
 class ScansList extends StatelessWidget {
 
@@ -36,14 +37,12 @@ class ScansList extends StatelessWidget {
           ),
         ),
         child: ListTile(
-          leading: Icon(
-            this.type == 'http' ? Icons.home_outlined : Icons.map_outlined
-            , color: Theme.of(context).primaryColor),
+          leading: Icon(this.type == 'http' ? Icons.home_outlined : Icons.map_outlined, color: Theme.of(context).primaryColor),
           title: Text(scans[i].value),
           subtitle: Text(scans[i].id.toString()),
           trailing: Icon(Icons.keyboard_arrow_right, color: Colors.grey),
-          onTap: () => print(scans[i].id.toString())
-        ),
+          onTap: () => launchURL(context, scans[i])
+        )
       )
     );
   }
