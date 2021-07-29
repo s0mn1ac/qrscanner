@@ -19,12 +19,13 @@ class _MapsScreenState extends State<MapsScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final CameraPosition initialPoint = CameraPosition(
-      target: LatLng(37.42796133580664, -122.085749655962),
-      zoom: 14.4746,
-    );
-
     final Scan scan = ModalRoute.of(context)!.settings.arguments as Scan;
+    
+    final CameraPosition initialPoint = CameraPosition(
+      target: scan.getLatLng(),
+      zoom: 17.5,
+      tilt: 50
+    );
     
     return Scaffold(
       appBar: AppBar(
@@ -33,7 +34,9 @@ class _MapsScreenState extends State<MapsScreen> {
         centerTitle: true,
       ),
       body: GoogleMap(
-        mapType: MapType.hybrid,
+        myLocationButtonEnabled: false,
+        zoomControlsEnabled: false,
+        mapType: MapType.normal,
         initialCameraPosition: initialPoint,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
