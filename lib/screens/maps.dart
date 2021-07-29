@@ -38,6 +38,21 @@ class _MapsScreenState extends State<MapsScreen> {
         elevation: 0,
         title: Text('Mapa'),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.my_location),
+            onPressed: () async {
+              final GoogleMapController controller = await _controller.future;
+              controller.animateCamera(CameraUpdate.newCameraPosition(
+                CameraPosition(
+                  target: scan.getLatLng(),
+                  zoom: 17.5,
+                  tilt: 50
+                )
+              ));
+            },
+          )
+        ],
       ),
       body: GoogleMap(
         myLocationButtonEnabled: false,
@@ -48,7 +63,13 @@ class _MapsScreenState extends State<MapsScreen> {
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         }
-      )
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.layers),
+        onPressed: () {
+          
+        },
+      ),
     );
   }
 }
